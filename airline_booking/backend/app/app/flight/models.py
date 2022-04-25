@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.orm import relationship
+from booking.models import Booking
 from database.session import Base
 
 class Flight(Base):
@@ -20,3 +21,5 @@ class Flight(Base):
     ticketCurrency = Column(String(10))
     flightNumber = Column(Integer)
     seatCapacity = Column(Integer)
+
+    booking = relationship(Booking, back_populates="flight")

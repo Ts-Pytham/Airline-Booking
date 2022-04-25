@@ -1,24 +1,25 @@
-from sqlalchemy import Column, Integer, String, DateTime, Boolean
+from tkinter import CASCADE
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
+from flight.models import Flight
+from user.models import User
 from database.session import Base
-from enum import Enum
-
-class BookingStatus(Enum):
-    UNCONFIRMED = 0
-    CONFIRMED = 1
-    CANCELLED = 2
+from schema import BookingStatus
 
 class Booking(Base):
-    __tablename__ = "flights"
+    __tablename__ = "bookings"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    status = BookingStatus.CANCELLED #Change
-    outboundFlight = relationship("Flight", uselist=False, foreign_keys="Booking.outboundFlightId") #Unchecked
+    status = Column(String(50), default=BookingStatus.UNCONFIRMED)
+    outboundFlightId = Column(Integer, ForeignKey(Flight.id, ondelete="CASCADE"), ) #Unchecked
+    flight = relationship(Flight, back_populates="booking")
     paymentToken = Column(String(50))
     checkedIn = Column(Boolean)
-    customer = relationship("User", uselist=False, foreign_keys="Booking.customerId") #Unchecked
+    customerId = Column(Integer, ForeignKey(User.id, ondelete="CASCADE"), ) #Unchecked
+    customer = relationship(User, back_populates="bookings")
     createdAt = Column(DateTime)
     bookingReference = Column(String(50))
+    
 
 
 
