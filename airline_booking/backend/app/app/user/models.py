@@ -1,8 +1,7 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
-from booking.models import Booking
-from database.session import Base
-from core import hashing
+from app.database.session import Base
+from app.core import hashing
 
 
 class User(Base):
@@ -13,7 +12,7 @@ class User(Base):
     username = Column(String(255), unique=True)
     password = Column(String(255))
 
-    bookings = relationship(Booking, back_populates="customer")
+    bookings = relationship("Booking", back_populates="customer")
 
 
     def __init__(self, name, email, password, *args, **kwargs):

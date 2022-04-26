@@ -1,17 +1,17 @@
 from pydantic import BaseSettings
-from typing import Optional
 from functools import lru_cache
 import os
+from os.path import dirname
 from dotenv import load_dotenv
 
 class Settings(BaseSettings):
 
-    load_dotenv('settings.env') # change this to your .env file path 
+    load_dotenv(f"{dirname(__file__)}/settings.env") # change this to your .env file path 
 
     DATABASE_USERNAME : str = os.getenv('DATABASE_USERNAME')
     DATABASE_PASSWORD : str = os.getenv('DATABASE_PASSWORD')
     DATABASE_HOST : str = os.getenv('DATABASE_HOST')
-    DATABASE_PORT : int = int(os.getenv('DATABASE_PORT'))
+    DATABASE_PORT : str = int(os.getenv('DATABASE_PORT'))
     DATABASE_NAME : str = os.getenv('DATABASE_NAME')
 
     DATABASE_URI : str = f"postgresql://{DATABASE_USERNAME}:{DATABASE_PASSWORD}@{DATABASE_HOST}:{DATABASE_PORT}/{DATABASE_NAME}"
@@ -28,3 +28,4 @@ def get_Settings() -> Settings:
 
 
 settings = get_Settings()
+

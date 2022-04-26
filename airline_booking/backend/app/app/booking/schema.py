@@ -1,7 +1,7 @@
 from enum import Enum
 from pydantic import BaseModel
-from flight.schema import Flight
-from user.schema import User
+from app.flight.schema import Flight
+from app.user.schema import User
 
 class BookingStatus(str, Enum):
     UNCONFIRMED = 'UNCONFIRMED'

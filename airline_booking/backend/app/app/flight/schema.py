@@ -1,7 +1,7 @@
 from datetime import datetime
 from pydantic import BaseModel
 
-from booking.schema import Booking 
+from app.booking.schema import Booking 
 
 class FlightBase(BaseModel):
     departureDate : datetime

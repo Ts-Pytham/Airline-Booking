@@ -1,7 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.orm import relationship
-from booking.models import Booking
-from database.session import Base
+from app.database.session import Base
 
 class Flight(Base):
     __tablename__ = "flights"
@@ -22,4 +21,4 @@ class Flight(Base):
     flightNumber = Column(Integer)
     seatCapacity = Column(Integer)
 
-    booking = relationship(Booking, back_populates="flight")
+    booking = relationship("Booking", back_populates="flight")

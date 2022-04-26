@@ -1,18 +1,15 @@
-from tkinter import CASCADE
 from sqlalchemy import Column, Integer, String, DateTime, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
-from flight.models import Flight
-from user.models import User
-from database.session import Base
-from schema import BookingStatus
+from app.user.models import User
+from app.database.session import Base
 
 class Booking(Base):
     __tablename__ = "bookings"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    status = Column(String(50), default=BookingStatus.UNCONFIRMED)
-    outboundFlightId = Column(Integer, ForeignKey(Flight.id, ondelete="CASCADE"), ) #Unchecked
-    flight = relationship(Flight, back_populates="booking")
+    status = Column(String(50))
+    outboundFlightId = Column(Integer, ForeignKey("flights.id", ondelete="CASCADE"), ) #Unchecked
+    flight = relationship("Flight", back_populates="booking")
     paymentToken = Column(String(50))
     checkedIn = Column(Boolean)
     customerId = Column(Integer, ForeignKey(User.id, ondelete="CASCADE"), ) #Unchecked
