@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./airline_booking/backend/app/app"
+    ]
+}

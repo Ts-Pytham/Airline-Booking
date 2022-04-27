@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from . import validator
 from . import models
 from . import schema
-from core import hashing
+from app.core import hashing
 
 async def new_user_register(user_in: schema.UserCreate, db_session: Session) -> models.User:
 
@@ -34,17 +34,17 @@ async def update_user(user_id: int, user: schema.UserUpdate, db_session : Sessio
     userc.id = user_id
     db_session.query(models.User).filter(models.User.id == user_id).update(
         {
-            models.User.name : userc.name, 
+            models.User.fullname : userc.fullname, 
             models.User.password : userc.password,
-            models.User.email : userc.email,
+            models.User.username : userc.username,
 
         }, synchronize_session=False)
     db_session.commit()
     
     return user
 
-def authenticate(*, email:str, password:str, db:Session) -> Optional[models.User]:
-    user = db.query(models.User).filter(models.User.email == email).first()
+def authenticate(*, username:str, password:str, db:Session) -> Optional[models.User]:
+    user = db.query(models.User).filter(models.User.username == username).first()
     if not user or not hashing.verify_password(password, user.password):
         return None
     return user

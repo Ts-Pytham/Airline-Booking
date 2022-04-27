@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
-from app.user.models import User
+
 from app.database.session import Base
 
 class Booking(Base):
@@ -12,8 +12,8 @@ class Booking(Base):
     flight = relationship("Flight", back_populates="booking")
     paymentToken = Column(String(50))
     checkedIn = Column(Boolean)
-    customerId = Column(Integer, ForeignKey(User.id, ondelete="CASCADE"), ) #Unchecked
-    customer = relationship(User, back_populates="bookings")
+    customerId = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), ) #Unchecked
+    customer = relationship("User", back_populates="bookings")
     createdAt = Column(DateTime)
     bookingReference = Column(String(50))
     

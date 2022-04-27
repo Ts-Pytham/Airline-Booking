@@ -1,7 +1,5 @@
 from pydantic import BaseModel, constr
 
-from booking.models import Booking
-
 class UserBase(BaseModel):
     fullname : constr(min_length=2, max_length=50)
     username : str
@@ -15,7 +13,6 @@ class UserUpdate(UserBase):
 
 class UserInDBBase(UserBase):
     id: int
-    booking : Booking
     password: str
 
     class Config:
@@ -23,6 +20,5 @@ class UserInDBBase(UserBase):
 
 class User(UserBase):
     id: int
-    booking : Booking
     class Config:
         orm_mode = True

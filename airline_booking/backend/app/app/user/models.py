@@ -15,9 +15,9 @@ class User(Base):
     bookings = relationship("Booking", back_populates="customer")
 
 
-    def __init__(self, name, email, password, *args, **kwargs):
-        self.name = name
-        self.email = email
+    def __init__(self, fullname, username, password, *args, **kwargs):
+        self.username = username
+        self.fullname = fullname
         self.password = hashing.get_password_hash(password)
 
     def check_password(self, password):

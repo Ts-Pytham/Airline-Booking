@@ -5,9 +5,9 @@ from sqlalchemy.orm import Session
 
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
-from user.models import User
-from database import db
-from auth import schema
+from app.user.models import User
+from app.database import db
+from app.auth import schema
 from . import config
 auth2_scheme = OAuth2PasswordBearer(tokenUrl="/login")
 

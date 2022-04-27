@@ -1,7 +1,6 @@
 from datetime import datetime
 from pydantic import BaseModel
 
-from app.booking.schema import Booking 
 
 class FlightBase(BaseModel):
     departureDate : datetime
@@ -27,7 +26,6 @@ class FlightUpdate(FlightBase):
 
 class FlightInDBBase(FlightBase):
     id : int
-    booking : Booking
     class Config:
         orm_mode = True
 
