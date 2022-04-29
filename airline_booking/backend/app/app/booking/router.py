@@ -13,13 +13,12 @@ api_router = APIRouter(tags = ["booking"])
 @api_router.get('/booking/{id}', response_model = schema.Booking)
 async def get_booking_by_id(id: int, db_session : Session = Depends(db.get_db)):
     booking = await services.get_booking_by_id(id, db_session)
-
     if not booking:
         raise HTTPException(status_code=404, detail="Booking not found")
 
     return booking
 
-@api_router.get('/booking', response_model = List[schema.Booking])
+@api_router.get('/booking/', response_model = List[schema.Booking])
 async def get_all_bookings(db_session : Session = Depends(db.get_db), customerName : str = None, status : schema.BookingStatus = None):
     bookings = await services.get_all_bookings(db_session=db_session, customerName=customerName, status=status)
     

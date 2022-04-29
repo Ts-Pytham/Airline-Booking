@@ -2,7 +2,9 @@ from datetime import datetime
 from pydantic import BaseModel
 
 
-class FlightBase(BaseModel):
+
+
+class CatalogBase(BaseModel):
     departureDate : datetime
     departureAirportCode : str
     departureAirportName : str
@@ -18,20 +20,20 @@ class FlightBase(BaseModel):
     flightNumber : int
     seatCapacity : int
 
-class FlightCreate(FlightBase):
+class CatalogCreate(CatalogBase):
     pass
 
-class FlightUpdate(FlightBase):
+class CatalogUpdate(CatalogBase):
     pass
 
-class FlightInDBBase(FlightBase):
+class CatalogInDBBase(CatalogBase):
     id : int
     class Config:
         orm_mode = True
 
-class Flight(FlightInDBBase):
+class Catalog(CatalogInDBBase):
     pass
 
-class FlightInDB(FlightInDBBase):
+class CatalogInDB(CatalogInDBBase):
     pass
     

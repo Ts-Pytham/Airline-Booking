@@ -17,7 +17,7 @@ if config.config_file_name is not None:
 from app.core.config import settings
 from app.database.session import Base
 from app.booking.models import Booking
-from app.flight.models import Flight
+from app.catalog.models import Flight
 from app.user.models import User
 
 # add your model's MetaData object here

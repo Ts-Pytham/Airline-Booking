@@ -2,7 +2,7 @@ from typing import List
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from app.booking.models import Booking
-from app.flight import models as flight_models
+from app.catalog import models as flight_models
 from app.user import models as user_models
 from . import schema
 

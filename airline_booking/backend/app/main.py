@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.booking import router as booking_router
 from app.user import router as user_router
+from app.catalog import router as catalog_router
 from app.database import models
 
 app = FastAPI(title="Airline Booking", version = "1.0")
@@ -12,5 +13,5 @@ async def home():
 
 app.include_router(booking_router.api_router)
 app.include_router(user_router.api_router)
-
+app.include_router(catalog_router.api_router)
 
