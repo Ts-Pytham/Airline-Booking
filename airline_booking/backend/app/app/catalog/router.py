@@ -42,9 +42,17 @@ async def create_catalog(flight_in: schema.CatalogCreate, db_session : Session =
 @api_router.put('/catalog/{id}', response_model= schema.Catalog)
 async def update_catalog(id: int, flight_in: schema.CatalogUpdate, db_session : Session = Depends(db.get_db)):
     catalog = await services.update_catalog(id, flight_in, db_session=db_session)
+
+    if not catalog:
+        raise HTTPException(status_code=404, detail="Catalog not found")
+
     return catalog
 
 @api_router.delete('/catalog/{id}', response_model= schema.Catalog)
 async def delete_catalog(id: int, db_session : Session = Depends(db.get_db)):
     catalog = await services.delete_catalog(id, db_session=db_session)
+
+    if not catalog:
+        raise HTTPException(status_code=404, detail="Catalog not found")
+        
     return catalog

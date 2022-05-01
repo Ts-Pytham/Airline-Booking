@@ -25,7 +25,7 @@ async def create_catalog(flight_in: schema.CatalogCreate, db_session : Session) 
 async def update_catalog(id: int, flight_in: schema.CatalogUpdate, db_session : Session) -> Flight:
     flight = db_session.query(Flight).filter(Flight.id == id).first()
     if not flight:
-        raise HTTPException(status_code=404, detail="Catalog not found")
+        return None
     
     db_session.query(Flight).filter(Flight.id == id).update({
         Flight.departureDate : flight_in.departureDate,
@@ -51,7 +51,7 @@ async def update_catalog(id: int, flight_in: schema.CatalogUpdate, db_session : 
 async def delete_catalog(id: int, db_session : Session) -> Flight:
     flight = db_session.query(Flight).filter(Flight.id == id).first()
     if not flight:
-        raise HTTPException(status_code=404, detail="Catalog not found")
+        return None
 
     db_session.delete(flight)
     db_session.commit()
