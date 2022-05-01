@@ -9,10 +9,8 @@ class BookingStatus(str, Enum):
 
 class BookingBase(BaseModel):
     status: BookingStatus
-    outboundFlightId: int
     paymentToken: str
     checkedIn: bool
-    customerId: int
     createdAt: datetime.datetime
     bookingReference: str
 

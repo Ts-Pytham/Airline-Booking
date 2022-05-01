@@ -30,6 +30,8 @@ async def get_all_bookings(db_session : Session = Depends(db.get_db), customerNa
 @api_router.post('/booking/flight/{idFlight}/user/{idUser}', response_model = schema.BookingCreate)
 async def create_booking(idFlight: int, idUser: int, booking_in : schema.BookingCreate, db_session : Session = Depends(db.get_db)):
     booking = await services.create_booking(idFlight=idFlight, idUser=idUser, booking_in=booking_in, db_session=db_session)
+    if not booking:
+        raise HTTPException(status_code=404, detail="Booking is already exist")
     return booking
 
 @api_router.delete('/booking/{id}', response_model = schema.Booking)
