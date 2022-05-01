@@ -8,7 +8,7 @@ from . import schema
 from app.core import hashing
 
 async def new_user_register(user_in: schema.UserCreate, db_session: Session) -> models.User:
-
+    
     new_user = models.User(**user_in.dict())
     db_session.add(new_user)
     db_session.commit()
