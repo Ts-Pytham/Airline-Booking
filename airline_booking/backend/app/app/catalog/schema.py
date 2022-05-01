@@ -34,6 +34,7 @@ class CatalogInDBBase(CatalogBase):
 class Catalog(CatalogInDBBase):
     pass
 
+
 class CatalogInDB(CatalogInDBBase):
     pass
     

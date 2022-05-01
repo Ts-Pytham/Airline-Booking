@@ -39,7 +39,7 @@ async def get_current_user(db: Session = Depends(db.get_db), token : str = Depen
     except jwt.JWTError:
         raise credentials_exception
 
-    user = db.query(User).filter(User.email == token_data.username).first()
+    user = db.query(User).filter(User.username == token_data.username).first()
     
     if user is None:
         raise credentials_exception
