@@ -9,6 +9,7 @@ from . import validator
 from app.catalog import validator as validator_catalog
 from app.user import validator as validator_user
 from app.user import schema as user_schema
+
 api_router = APIRouter(tags = ["booking"])
 
 

@@ -3,6 +3,7 @@ from fastapi import HTTPException
 from sqlalchemy.orm import Session
 import datetime
 from app.catalog.models import Flight
+from app.booking.models import Booking
 from . import schema
 
 async def get_all_catalogs(departureAirportCode : str, arrivalAirportCode : str, departureDate : datetime.datetime, db_session : Session) -> List[Flight]: 
@@ -53,6 +54,10 @@ async def delete_catalog(id: int, db_session : Session) -> Flight:
     if not flight:
         return None
 
+    booking = db_session.query(Booking).filter(Booking.outboundFlightId == id).first()
+    if booking:
+        db_session.delete(booking)
+    
     db_session.delete(flight)
     db_session.commit()
     return flight

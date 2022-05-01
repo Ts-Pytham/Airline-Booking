@@ -1,12 +1,8 @@
 from typing import List
-from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from app.booking.models import Booking
-from app.catalog import models as flight_models
 from app.user import models as user_models
 from . import schema
-from app.catalog.schema import Catalog
-from app.user.schema import User
 
 async def get_booking_by_id(booking_id: int, db_session : Session) -> Booking:
     booking = db_session.query(Booking).get(booking_id)
