@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from . import validator
 from . import models
 from . import schema
+from app.booking.models import Booking
 from app.core import hashing
 
 async def new_user_register(user_in: schema.UserCreate, db_session: Session) -> models.User:
@@ -26,10 +27,23 @@ async def get_user_by_id(user_id: int, db_session: Session) -> Optional[models.U
     return user_info
 
 async def delete_user_by_id(user_id: int, db_session: Session):
-    db_session.query(models.User).filter(models.User.id == user_id).delete()
+    user = await validator.verify_user_exist(user_id, db_session)
+    if not user:
+        return None
+
+    booking = db_session.query(Booking).filter(Booking.customerId == user_id).all()
+    if booking:
+        for b in booking:
+            db_session.delete(b)
+
+    db_session.delete(user)
     db_session.commit()
+    return user
 
 async def update_user(user_id: int, user: schema.UserUpdate, db_session : Session) -> Optional[schema.User]:
+    if not await validator.verify_user_exits(user_id, db_session):
+        return None
+        
     userc = models.User(**user.dict())
     userc.id = user_id
     db_session.query(models.User).filter(models.User.id == user_id).update(

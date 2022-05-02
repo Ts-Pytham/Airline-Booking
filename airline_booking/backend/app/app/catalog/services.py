@@ -54,9 +54,10 @@ async def delete_catalog(id: int, db_session : Session) -> Flight:
     if not flight:
         return None
 
-    booking = db_session.query(Booking).filter(Booking.outboundFlightId == id).first()
+    booking = db_session.query(Booking).filter(Booking.outboundFlightId == id).all()
     if booking:
-        db_session.delete(booking)
+        for b in booking:
+            db_session.delete(b)
     
     db_session.delete(flight)
     db_session.commit()

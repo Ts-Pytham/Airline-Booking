@@ -2,6 +2,9 @@ import datetime
 from enum import Enum
 from pydantic import BaseModel
 
+from app.catalog.schema import Catalog
+from app.user.schema import User
+
 
 class BookingStatus(str, Enum):
     UNCONFIRMED = 'UNCONFIRMED'
@@ -20,8 +23,8 @@ class BookingCreate(BookingBase):
 
 class BookingInDBBase(BookingBase):
     id : int
-    outboundFlightId: int
-    customerId: int
+    flight: Catalog
+    customer: User
 
     class Config:
         orm_mode = True
